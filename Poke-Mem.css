@@ -1,0 +1,101 @@
+.bckg{
+    background-image: url(./fondo.jpg);
+}
+.bck1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PokeBall.png);
+}
+.frt1{
+    cursor: pointer;
+    position: absolute;
+    transform: rotateY(0deg);
+    transition: 0.4s
+}
+.bck2{
+    backface-visibility: hidden;
+    position: absolute;
+    transform: rotateY(180deg);
+    transition: 0.4s
+}
+.frt2{
+    backface-visibility: hidden;
+    cursor: pointer;
+    position: absolute;
+    transform: rotateY(180deg);
+    transition: 0.4s
+}
+.bck3{
+    backface-visibility: hidden;
+    position: absolute;
+    transform: rotateY(0deg);
+    transition: 0.4s
+}
+
+.img1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK1.jpg);
+}
+.img2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK2.jpg);
+}
+.img3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK3.jpg);
+}
+.img4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK4.jpg);
+}
+.img5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK5.jpg);
+}
+.img6{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK6.jpg);
+}
+.img7{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK7.jpg);
+}
+.img8{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./PK8.jpg);
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Poke-Memoria</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Poke-Mem.css">
+  </head>  
+  <body class="bckg">
+    <div id="main"></div>
+    <script type="text/babel">
+      class Counter extends React.Component{
+        constructor (props){
+          super(props)
+          this.state = {
+          }
+        }
+        render(){
+          const ataques  = {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "60px",
+            height: "30px",
+            color: "red",
+            fontFamily: "arial",
+            textShadow: "2px 2px 2px black",
+            fontSize: "20px"
+          }
+          return (
+            <div style={ataques}>
+              {this.props.cont1}
+            </div>
+          )                   
+        }
+      }
+      class Crd extends React.Component{
+        constructor (props){
+          super(props)
+          this.state = {
+            flp: false
+          }
+        }
+        handleClick() {
+          this.props.handle(this.props.num, this.props.numC)
+        }
+        render(){
+          const bckgnd  = {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "black"
+          }
+          if(this.props.flps){
+            var frnt = "frt1"
+            var bck = "bck2"
+            var side1 = this.props.img
+          }
+          else{
+            var frnt = "frt2"
+            var bck = "bck3"
+            var side2 = "bck1"
+          }
+          return (
+              <div style={bckgnd} onClick={this.handleClick.bind(this)}>
+                <div className ={frnt}>
+                  <div className={this.props.img}></div>
+                </div>
+                <div className ={bck}>
+                  <div className="bck1"></div>
+                </div>
+              </div>
+          )                   
+        }
+      }
+      class Game extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = {
+            randV: [],
+            normV: [],
+            imgV: [],
+            slct: [],
+            slctPos: [],
+            trs: [],
+            flps2: [],
+            vls: null,
+            cont2: 0
+          }
+          this.mxs()
+        }
+        mxs(){
+          this.state.normV = [0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7]
+          this.state.imgV = ["img1","img2","img3","img4","img5","img6","img7","img8"]
+          let randV2 = []
+          let flpV = []
+          while(this.state.normV.length>0){
+            var vec = this.state.normV.splice(Math.floor(Math.random() * this.state.normV.length), 1)
+            vec = vec[0]
+            randV2.push(vec)
+          }
+          this.state.randV = [...randV2]
+          for(let i = 0; i<16; i++){
+            flpV.push(false)
+          }
+          this.state.flps2 = [...flpV]
+        }
+        crdClk(num, pos){
+          if(this.state.slct.length < 2 && pos != this.state.vls && !this.state.trs.includes(num)){
+            var v = this.state.flps2
+            var pst = this.state.slctPos
+            v[pos] = true
+            this.setState({
+              flps2: v,
+              vls: pos
+            })
+            var slct2 = this.state.slct
+            slct2.push(num)
+            pst.push(pos)
+            this.setState({
+              slct: slct2,
+              slctPos: pst
+            })            
+            if(slct2.length != 2){
+            }
+            else{
+              this.setState({
+                cont2: this.state.cont2 + 1
+              })
+              if(slct2[0] == slct2[1] && slct2[0] != null && slct2[1] != null){
+                var crt = this.state.trs
+                crt.push(num)
+                this.setState({
+                  trs: crt
+                })
+                this.setState({
+                    slct: [],
+                    slctPos: [],
+                    vls: null
+                })              
+                setTimeout(() => {
+                  if (crt.length == 8){
+                  alert("Eres el Poke-Ganador")
+                  }else{
+                  }
+                },100)
+              }else{
+                setTimeout(() => {
+                  v = this.state.flps2
+                  v[this.state.slctPos[0]] = false
+                  v[this.state.slctPos[1]] = false
+                  this.setState({
+                    flps2: v,
+                    slct: [],
+                    slctPos: [],
+                    vls: null
+                  })
+                },800)  
+              }
+            }
+          }
+        }
+        render(){
+          const grid = {
+            display: "grid",
+            gridTemplateColumns: "100px 100px 100px 100px 100px 100px 100px 100px",
+            gridTemplateRows: "150px 150px",  
+            gridColumnGap: "10px",
+            gridRowGap: "10px",
+          }
+          const txts = {
+            display: "flex",
+            justifyContent: "center",
+            width: "700px",
+            height: "100px",
+            fontWeight: "bold",
+            textShadow: "2px 2px 2px black",
+            color: "red",
+            fontFamily: "helvetica",
+            fontSize: "20px"
+          }
+          const tlt = {
+            display: "flex",
+            justifyContent: "center",
+            width: "700px",
+            height: "100px",
+            fontWeight: "bold",
+            textShadow: "2px 2px 2px black",
+            color: "red",
+            fontFamily: "helvetica",
+            fontSize: "80px"
+          }      
+          const flex = {
+            display: "flex",
+            justifyContent: "center"
+          } 
+          return (
+            <div>
+              <div style={flex}>
+                  <div style={tlt}>Poke-Memoria</div>
+              </div>
+              <div style={flex}>
+                  <div style={txts}></div>
+              </div>
+              <div style={flex}>
+                <div style={grid}>
+                  <Crd num = {this.state.randV[0]}  img = {this.state.imgV[this.state.randV[0]]} numC = '0' handle ={this.crdClk.bind(this)} flps={this.state.flps2[0]} />
+                  <Crd num = {this.state.randV[1]}  img = {this.state.imgV[this.state.randV[1]]} numC = '1' handle ={this.crdClk.bind(this)} flps={this.state.flps2[1]} />
+                  <Crd num = {this.state.randV[2]}  img = {this.state.imgV[this.state.randV[2]]} numC = '2' handle ={this.crdClk.bind(this)} flps={this.state.flps2[2]} />
+                  <Crd num = {this.state.randV[3]}  img = {this.state.imgV[this.state.randV[3]]} numC = '3' handle ={this.crdClk.bind(this)} flps={this.state.flps2[3]} />
+                  <Crd num = {this.state.randV[4]}  img = {this.state.imgV[this.state.randV[4]]} numC = '4' handle ={this.crdClk.bind(this)} flps={this.state.flps2[4]} />
+                  <Crd num = {this.state.randV[5]}  img = {this.state.imgV[this.state.randV[5]]} numC = '5' handle ={this.crdClk.bind(this)} flps={this.state.flps2[5]} />
+                  <Crd num = {this.state.randV[6]}  img = {this.state.imgV[this.state.randV[6]]} numC = '6' handle ={this.crdClk.bind(this)} flps={this.state.flps2[6]} />
+                  <Crd num = {this.state.randV[7]}  img = {this.state.imgV[this.state.randV[7]]} numC = '7' handle ={this.crdClk.bind(this)} flps={this.state.flps2[7]} />
+                  <Crd num = {this.state.randV[8]}  img = {this.state.imgV[this.state.randV[8]]} numC = '8' handle ={this.crdClk.bind(this)} flps={this.state.flps2[8]} />
+                  <Crd num = {this.state.randV[9]}  img = {this.state.imgV[this.state.randV[9]]} numC = '9' handle ={this.crdClk.bind(this)} flps={this.state.flps2[9]} />
+                  <Crd num = {this.state.randV[10]}  img = {this.state.imgV[this.state.randV[10]]} numC = '10' handle ={this.crdClk.bind(this)} flps={this.state.flps2[10]} />
+                  <Crd num = {this.state.randV[11]}  img = {this.state.imgV[this.state.randV[11]]} numC = '11' handle ={this.crdClk.bind(this)} flps={this.state.flps2[11]} />
+                  <Crd num = {this.state.randV[12]}  img = {this.state.imgV[this.state.randV[12]]} numC = '12' handle ={this.crdClk.bind(this)} flps={this.state.flps2[12]} />
+                  <Crd num = {this.state.randV[13]}  img = {this.state.imgV[this.state.randV[13]]} numC = '13' handle ={this.crdClk.bind(this)} flps={this.state.flps2[13]} />
+                  <Crd num = {this.state.randV[14]}  img = {this.state.imgV[this.state.randV[14]]} numC = '14' handle ={this.crdClk.bind(this)} flps={this.state.flps2[14]} />
+                  <Crd num = {this.state.randV[15]}  img = {this.state.imgV[this.state.randV[15]]} numC = '15' handle ={this.crdClk.bind(this)} flps={this.state.flps2[15]} />
+                </div>
+              </div>
+              <div style={flex}>
+                <div style={txts}>Ataques realizados:<Counter cont1 = {this.state.cont2} /></div>
+              </div>
+            </div>
+          )
+        }   
+      }
+    ReactDOM.render(<Game />, document.getElementById('main'))
+    </script>
+  </body>
+</html>
